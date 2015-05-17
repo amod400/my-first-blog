@@ -4,4 +4,4 @@ myEnv
 db.sqlite3
 .DS_Store
 .idea
-static
+/static
