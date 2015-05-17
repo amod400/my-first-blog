@@ -1,62 +1,17 @@
 <!--
  Author: Amod Augustin
 -->
-<!doctype html>
-<html>
-    <head>
-        <title>
-            DG Blog!
-        </title>
-        <style>
-            body{
-                margin: 0%;
-            }
-            #mainContainer{
-                background: linear-gradient(to bottom right, #ffffff 90%, #dbdbdb);
-                /*border: dashed 2px aqua;*/
-                height: 100vh;
-            }
-            #Banner{
-                height: 10%;
-                background-color: #ebecec;
-                /*border: dashed 2px aqua;*/
-            }
-            #Banner p{
-                /*top: 50%;*/
-                left: 50%;
-                /*width: 260px;*/
-                /*height: 20px;*/
-                margin-left: -180px ;
-                margin-top: 16px;
-                position: absolute;
-                color: #626363;
-                font-size: 2em;
-                padding-left: 20px;
-                text-shadow:  0px 0px 1px #8a8a8b;
-                /*border: dashed 2px white;*/
-
-            }
-
-            .posts{
-                padding-left: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="mainContainer">
-            <div id="Banner">
-                <p>Django Guys Blog!</p>
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for postContent in post %}
+        <div class="post">
+            <div class="date">
+                {{ postContent.published_date }}
             </div>
-                {% for postContent in post %}
-                    <div class="posts">
-                        <h3>{{ postContent.title }}</h3>
-                        <p> Published: {{ postContent.published_date }}</p>
-                        <p>{{ postContent.text }}</p>
-                    </div>
-                {% endfor %}
-{#            <div class="posts">#}
-{#                {{ post }}#}
-{#            </div>#}
+            <h1><a href="{% url 'blog.views.post_detail' pk=postContent.pk  %}">{{ postContent.title }}</a></h1>
+
+            <p>{{ postContent.text|linebreaks }}</p>
         </div>
-    </body>
-</html>
+    {% endfor %}
+
+{% endblock content %}
